@@ -44,6 +44,18 @@ app.put('/todo/:id', (req, res) => {
   todo.text = text;
   res.redirect('/');
 });
+app.delete('/todo/:id', (req, res) => {
+  const id = Number(req.params.id);
+
+  const index = todos.findIndex(item => item.id === id);
+
+  if (index === -1) {
+    return res.status(404).send('할 일을 찾을 수 없습니다.');
+  }
+
+  todos.splice(index, 1);
+  res.redirect('/');
+});
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });
